@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# This is a simple script to create and setup a React - Tailwind project with my personal preferences of configuration.
+# Feel free to use it as you need to automate your projects creations.
+
+folder_name=$1;
+
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+RED=`tput setaf 1`;
+reset=`tput sgr0`;
+
+
+echo "${RED}Creating Frontend Application${reset}";
+mkdir $folder_name;
+cd $folder_name;
+
+
+echo "${RED}Creating react app${reset}";
+npx create-react-app .;
+
+
+echo "${RED}Installing Tailwindcss${reset}";
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9;
+
+
+echo "${RED}Setting up Tailwind${reset}";
+npm install @craco/craco
+sed -i '/"scripts"/,/"test"/{s/react-scripts/craco/}' package.json;
+cp ${SCRIPTPATH}/frontend_boilerplate/craco.config.js ./craco.config.js
+npx tailwindcss-cli@latest init
+sed -i '2 s/^.*$/  purge: \[\".\/src\/**\/*.{js,jsx,ts,tsx}\", \".\/public\/index.html\"\],/g' tailwind.config.js;
+
+
+echo "${RED}Including Tailwind in your project${reset}";
+cp ${SCRIPTPATH}/frontend_boilerplate/index.css ./src/index.css
+
+
+echo "${RED}Cleaning the React project${reset}";
+cp ${SCRIPTPATH}/frontend_boilerplate/App.js ./src/App.js
+rm src/App.css;
+rm src/reportWebVitals.js;
+rm src/logo.svg;
+rm src/setupTests.js;
+rm src/App.test.js;
+mkdir src/components;
+mkdir src/assets;
+
+echo "${RED}You're all good to go! Happy developing!${reset}";
+
+
+

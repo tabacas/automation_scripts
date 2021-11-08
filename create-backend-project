@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This is a simple script to create and setup a Python Flask API project with my personal preferences of configuration,
+# initializing a git as well.
+# Feel free to use it as you need to automate your projects creations.
+
+folder_name=$1;
+
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+RED=`tput setaf 1`;
+reset=`tput sgr0`;
+
+${SCRIPTPATH}/create-backend-project-no-git $folder_name;
+
+cd $folder_name;
+git init;
+git add .;
+git commit -m "Initial commit";

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This is a simple script to create and setup fullstack webapp project.
+# This app features a React - Tailwindcss frontend to be hosted on github pages and
+# a Python Flask backend to be hosted on Heroku;
+
+FOLDERNAME=$1;
+
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+RED=`tput setaf 1`;
+reset=`tput sgr0`;
+
+mkdir ${FOLDERNAME};
+cd ${FOLDERNAME};
+git init;
+
+
+echo "${RED}Creating Readme file${reset}";
+echo "This is a fullstack web application writen in React / Tailwind and Python Flask" > README.md
+
+
+echo "${RED}Creating Backend ${reset}";
+${SCRIPTPATH}/create-backend-project-no-git backend;
+
+
+echo "${RED}\t\tCreating Frontend ${reset}";
+${SCRIPTPATH}/create-frontend-project-no-git frontend;
+
+
+echo "${RED}Setting up heroku configurations${reset}";
+echo "web: gunicorn app:app -t 0" > Procfile;
+pyv="$(python -V 2>&1)"
+echo "python-${pyv: -5}" > runtime.txt;
+echo "from backend.app import app" > app.py;
+
+
+
+
+
