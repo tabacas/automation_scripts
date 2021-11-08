@@ -12,7 +12,7 @@ SCRIPTPATH=`dirname $SCRIPT`
 RED=`tput setaf 1`;
 reset=`tput sgr0`;
 
-${SCRIPTPATH}/create-backend-project-no-git $folder_name;
+sudo bash ${SCRIPTPATH}/create-backend-project-no-git $folder_name;
 
 cd $folder_name;
 git init;

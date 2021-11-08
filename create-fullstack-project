@@ -22,11 +22,11 @@ echo "This is a fullstack web application writen in React / Tailwind and Python 
 
 
 echo "${RED}Creating Backend ${reset}";
-${SCRIPTPATH}/create-backend-project-no-git backend;
+sudo bash ${SCRIPTPATH}/create-backend-project-no-git backend;
 
 
 echo "${RED}\t\tCreating Frontend ${reset}";
-${SCRIPTPATH}/create-frontend-project-no-git frontend;
+sudo bash ${SCRIPTPATH}/create-frontend-project-no-git frontend;
 
 
 echo "${RED}Setting up heroku configurations${reset}";
